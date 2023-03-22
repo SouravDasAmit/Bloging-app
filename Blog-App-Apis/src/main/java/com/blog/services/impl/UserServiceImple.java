@@ -28,12 +28,12 @@ public class UserServiceImple implements UserService {
 	@Override
 	public UserDto updateUser(UserDto userDto, Integer userId) {
 		User user= this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("user", "id", userId));
-		user.setU_name(user.getU_name());
+		user.setU_name(userDto.getU_name());
 		System.out.println(user.getU_name() +userDto.getU_name());
 		user.setU_id(user.getU_id());
-		System.out.println(user.getU_id());
-		user.setU_gmail(user.getU_gmail());
-		user.setPassword(user.getPassword());
+		System.out.println(userDto.getU_id());
+		user.setU_gmail(userDto.getU_gmail());
+		user.setPassword(userDto.getPassword());
 		User updateUser= this.userRepo.save(user);
 		UserDto userDto1= this.UsertoUserDto(updateUser);
 		
