@@ -55,7 +55,7 @@ public class UserServiceImple implements UserService {
 	@Override
 	public List<UserDto> getAllUsers() {
 		List<User> users= userRepo.findAll();
-		List<UserDto> userDtos =users.stream().map(user->this.UsertoUserDto(user)).collect(Collectors.toList());
+		List<UserDto> userDtos =users.stream().map(user->this.UsertoUserDto(user)).collect(Collectors.toList()); 
 		
 		return userDtos;
 	}

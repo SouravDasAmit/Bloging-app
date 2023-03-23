@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 	{
 		Map<String, String> response= new HashMap<>();
 		ex.getBindingResult().getAllErrors().forEach((error)->{
-			String fieldName= ((FieldError)error).getField();
+			String fieldName= ((FieldError)error).getField();  //typecust object error to field error then got getField
 			String message= error.getDefaultMessage();
 			response.put(fieldName, message);
 		});
