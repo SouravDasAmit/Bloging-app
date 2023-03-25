@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-    <typeInfo handle="=Blog-App-Apis/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.blog.services{UserService.java[UserService" modifiers="513" timestamp="1679331397980"/>
+    <typeInfo handle="=Blog-App-Apis/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.blog.services{UserService.java[UserService" modifiers="513" timestamp="1679551230037"/>
+    <typeInfo handle="=Blog-App-Apis/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.blog.services{CategoriService.java[CategoriService" modifiers="513" timestamp="1679554872129"/>
+    <typeInfo handle="=Blog-App-Apis/C:\/Users\/Laptop\/.m2\/repository\/org\/aspectj\/aspectjweaver\/1.9.19\/aspectjweaver-1.9.19.jar=/maven.pomderived=/true=/=/maven.groupId=/org.aspectj=/=/maven.artifactId=/aspectjweaver=/=/maven.version=/1.9.19=/=/maven.scope=/compile=/=/maven.pomderived=/true=/&lt;org.aspectj.lang.reflect(CatchClauseSignature.class[CatchClauseSignature" modifiers="1537" timestamp="1678555116648"/>
+    <typeInfo handle="=Blog-App-Apis/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.blog.services{PostService.java[PostService" modifiers="513" timestamp="1679670726970"/>
 </typeInfoHistroy>
