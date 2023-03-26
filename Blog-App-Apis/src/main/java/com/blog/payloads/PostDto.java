@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PostDto 
 {
+	private Integer postId;
 	@NotEmpty
 	@Size(message="Please provide a post title.")
 	private String title;

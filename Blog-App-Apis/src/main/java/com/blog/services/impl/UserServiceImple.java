@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.blog.entities.User;
@@ -66,6 +65,7 @@ public class UserServiceImple implements UserService {
 		this.userRepo.delete(user);
 
 	}
+	
 	private User dtoToUser(UserDto userDto)
 	{
 		User user= this.modelMapper.map(userDto, User.class);
