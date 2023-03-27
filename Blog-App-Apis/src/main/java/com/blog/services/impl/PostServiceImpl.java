@@ -58,7 +58,7 @@ public class PostServiceImpl implements PostService {
 		post.setContent(postDto.getContent());
 		//if you want to update more things write code here 
 		//System.out.println(postDto.getTitle());
-
+		post.setImageName("default.png");
 		Post updatedPost= this.postRepo.save(post);
 		return this.modelMapper.map(updatedPost, PostDto.class);
 	}

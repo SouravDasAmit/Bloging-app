@@ -1,7 +1,0 @@
-package com.blog.services.impl;
-
-import com.blog.services.UserService;
-
-public interface Impl extends UserService {
-
-}
