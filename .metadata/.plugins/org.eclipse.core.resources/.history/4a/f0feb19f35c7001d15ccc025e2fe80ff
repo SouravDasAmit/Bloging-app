@@ -1,0 +1,65 @@
+package com.blog.services.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.blog.entities.User;
+import com.blog.payloads.UserDto;
+import com.blog.services.UserService;
+import com.blog.repositories.*;
+
+public class UserServiceImple implements UserService {
+	@Autowired
+	private UserRepo userRepo;
+	
+	@Override
+	public UserDto createUser(UserDto userDto) {
+		User user= this.dtoToUser(userDto);
+		User saveUser= this.userRepo.save(user);
+		return this.UsertoUserDto(saveUser);
+	}
+
+	@Override
+	public UserDto updateUser(UserDto user, Integer userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserDto getUserById(Integer userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserDto> getAllUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteUser(Integer userId) {
+		// TODO Auto-generated method stub
+
+	}
+	private User dtoToUser(UserDto userDto)
+	{
+		User user= new User();
+		user.setU_id(userDto.getU_id());
+		user.setU_name(userDto.getU_name());
+		user.setU_gmail(userDto.getU_gmail());
+		user.setPassword(userDto.getPassword());
+		return user;
+	}
+	private UserDto UsertoUserDto(User user)
+	{
+		UserDto userDto= new UserDto();
+		userDto.setU_id(user.getU_id());
+		userDto.setU_name(user.getU_name());
+		userDto.setU_gmail(user.getU_gmail());
+		userDto.setPassword(user.getPassword());
+		return userDto;
+	}
+
+}
