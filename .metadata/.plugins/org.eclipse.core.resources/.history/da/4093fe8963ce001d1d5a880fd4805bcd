@@ -1,0 +1,8 @@
+package com.blog.security;
+
+public class JwtAuthResponse 
+{
+
+	private String token;
+	
+}

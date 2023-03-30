@@ -1,0 +1,8 @@
+package com.blog.payloads;
+
+public class JwtAuthResponse 
+{
+
+	private String token;
+	
+}

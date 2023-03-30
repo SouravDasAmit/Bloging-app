@@ -1,12 +1,16 @@
 package com.blog.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +29,7 @@ import com.blog.payloads.PostResponse;
 import com.blog.services.FileService;
 import com.blog.services.PostService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -39,7 +44,8 @@ public class PostController
 	private String path;
 	//create post
 	@PostMapping("/user/{u_id}/categori/{categoriId}/")
-	public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto, @PathVariable Integer u_id, @PathVariable Integer categoriId)
+	public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto, @PathVariable Integer u_id, 
+			@PathVariable Integer categoriId)
 	{
 		//System.out.println(postDto.getTitle()+" "+postDto.getContent()+" "+u_id);
 		PostDto createPost= this.postService.createPost(postDto, u_id, categoriId);
@@ -113,10 +119,18 @@ public class PostController
 			@PathVariable Integer postId) throws IOException
 	{
 		PostDto postDto= this.postService.getPostById(postId);
-		System.out.println(postId);
+		//System.out.println(postId);
 		String fileName= this.fileService.uploadImage(path, image);
 		postDto.setImageName(fileName);
 		PostDto updatePost= this.postService.updatePost(postDto, postId);
 		return new ResponseEntity<PostDto>(updatePost, HttpStatus.OK);
+	}
+	//to serve image
+	@GetMapping(value = "/imageServe/{imageName}", produces= MediaType.IMAGE_JPEG_VALUE)
+	public void serveImage(@PathVariable String imageName, HttpServletResponse response) throws IOException
+	{
+		InputStream resource= this.fileService.getResource(path, imageName);
+		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+		StreamUtils.copy(resource, response.getOutputStream());
 	}
 }

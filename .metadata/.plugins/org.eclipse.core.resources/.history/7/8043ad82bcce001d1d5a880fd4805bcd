@@ -1,0 +1,60 @@
+package com.blog.controller;
+
+import org.apache.catalina.connector.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.blog.payloads.JwtAuthRequest;
+import com.blog.payloads.JwtAuthResponse;
+import com.blog.security.JwtTolenHelper;
+
+@RestController
+@RequestMapping("/auth/")
+public class AuthController 
+{
+	@Autowired
+	private JwtTolenHelper jwtTolenHelper;
+	@Autowired
+	private UserDetailsService userDetailsService;
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	@PostMapping("/login")
+	public ResponseEntity<JwtAuthResponse> creteToken(@RequestBody JwtAuthRequest request) throws Exception
+	{
+		System.out.println(request.getEmail() +" "+ request.getPassword());
+		this.authenticate(request.getEmail(), request.getPassword());
+		
+		UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getEmail());
+		String token= this.jwtTolenHelper.generateToken(userDetails);
+		JwtAuthResponse response= new JwtAuthResponse();
+		response.setToken(token);
+		return new ResponseEntity<JwtAuthResponse>(response, HttpStatus.OK);
+		
+	}
+	private void authenticate(String email, String password) throws Exception 
+	{
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken= new UsernamePasswordAuthenticationToken(email, password);
+		try 
+		{
+			
+			this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+		}
+		catch (BadCredentialsException e) 
+		{
+			throw new Exception("Invalid username and password");
+		}
+
+	}
+
+}
