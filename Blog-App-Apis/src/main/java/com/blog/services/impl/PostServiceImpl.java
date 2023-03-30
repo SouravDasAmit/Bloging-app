@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.blog.controller.PostController;
 import com.blog.entities.Categori;
 import com.blog.entities.Post;
 import com.blog.entities.User;
@@ -34,6 +35,7 @@ public class PostServiceImpl implements PostService {
 	private UserRepo userRepo;
 	@Autowired
 	private CategoriRepo categoriRepo;
+	
 	@Override
 	public PostDto createPost(PostDto postDto, Integer u_id, Integer categoriId) {
 		User user= this.userRepo.findById(u_id).orElseThrow(() ->new ResourceNotFoundException("User", "userId", u_id));
@@ -58,7 +60,7 @@ public class PostServiceImpl implements PostService {
 		post.setContent(postDto.getContent());
 		//if you want to update more things write code here 
 		//System.out.println(postDto.getTitle());
-		post.setImageName("default.png");
+		post.setImageName(postDto.getImageName());
 		Post updatedPost= this.postRepo.save(post);
 		return this.modelMapper.map(updatedPost, PostDto.class);
 	}
